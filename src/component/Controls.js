@@ -77,7 +77,6 @@ const Controls = ({
           onClick={() => setCells(blankCells())}
           style={{ width: "25px", height: "25px", cursor: "pointer" }}
         />
-        <PixelImg cells={cells} gridWidth={gridWidth} gridHeight={gridHeight} />
       </div>
       <div className="menubar">
         <Menu title="File">
@@ -139,6 +138,7 @@ const Controls = ({
           </div>
         </Menu>
         <div className="spacer" />
+        <PixelImg cells={cells} gridWidth={gridWidth} gridHeight={gridHeight} />
         <div className="logo">pxl-art</div>
       </div>
     </div>

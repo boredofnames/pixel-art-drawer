@@ -15,7 +15,7 @@ export const Import = ({ setCells }) => {
   return (
     <div className="import">
       <label>
-        Import
+        Load Project
         <input
           type="file"
           ref={importRef}
@@ -29,14 +29,16 @@ export const Import = ({ setCells }) => {
 
 export const Export = ({ cells }) => {
   const doExport = (e) => {
+    let name = prompt("File name?", "new");
+    if (!name) return;
     e.currentTarget.href = URL.createObjectURL(new Blob([compress(cells)]));
-    e.currentTarget.download = "pixel.art";
+    e.currentTarget.download = `${name}.pxl`;
   };
 
   return (
     <div className="import">
       {/* eslint-disable-next-line*/}
-      <a onClick={doExport}>Export</a>
+      <a onClick={doExport}>Save Project</a>
     </div>
   );
 };

@@ -31,14 +31,16 @@ const PixelGrid = ({
       case 0:
         if (tool === "pen") updateCell(i, j);
         else if (tool === "eraser") updateCell(i, j, "#00000000");
-        else if (tool === "colorpicker") setColor(cells[i][j]);
+        else if (tool === "colorpicker" && cells[i][j] !== "#00000000")
+          setColor(cells[i][j]);
         break;
       case 1:
         replaceColor(i, j);
         break;
       case 2:
         if (tool === "pen") updateCell(i, j, sColor);
-        else if (tool === "colorpicker") setSColor(cells[i][j]);
+        else if (tool === "colorpicker" && cells[i][j] !== "#00000000")
+          setSColor(cells[i][j]);
         break;
       default:
         break;

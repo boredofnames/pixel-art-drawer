@@ -39,12 +39,29 @@ function App() {
     [cells]
   );
 
+  const onKeyDown = (e) => {
+    console.log(e.key);
+    switch (e.key) {
+      case "a":
+        setTool("pen");
+        break;
+      case "s":
+        setTool("colorpicker");
+        break;
+      case "d":
+        setTool("eraser");
+        break;
+      default:
+        break;
+    }
+  };
+
   useEffect(() => {
     setCells(blankCells());
   }, [gridWidth, gridHeight, blankCells]);
 
   return (
-    <div className="App">
+    <div className="App" onKeyDown={(e) => onKeyDown(e)} tabIndex={0}>
       <PixelGrid
         color={color}
         setColor={setColor}

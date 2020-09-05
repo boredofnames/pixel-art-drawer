@@ -11,24 +11,29 @@
 
 .colors {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
 }
 
 .colorpicker {
   width: 35px;
   height: 35px;
-  margin-right: 5px;
+  margin-right: 3px;
   cursor: pointer;
+}
+.colorpicker:first-of-type {
+  margin-right: 0;
 }
 .history {
   display: flex;
+  flex-wrap: wrap;
   margin-bottom: 5px;
+  overflow: auto;
+  height: 48px;
 }
 .historyitem {
-  width: 25px;
-  height: 25px;
-  outline: 1px solid lightgray;
-  margin-right: 5px;
+  width: 24px;
+  height: 24px;
+  margin-right: 3px;
   cursor: pointer;
 }
 
@@ -51,7 +56,6 @@ input[type="range"] {
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 5px;
   background-color: #333;
   padding: 5px;
 }
@@ -98,6 +102,11 @@ input[type="range"] {
   align-items: center;
   flex-wrap: wrap;
   margin-bottom: 5px;
+}
+
+.menu a {
+  color: white;
+  text-decoration: none;
 }
 
 hr {
