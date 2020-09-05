@@ -59,14 +59,23 @@ const PixelGrid = ({
         break;
     }
   };
+  const onTouchMove = (e) => {
+    var cell = document.elementFromPoint(
+      e.touches[0].clientX,
+      e.touches[0].clientY
+    );
+    if (!cell) return;
+    var pos = cell.getAttribute("data-index");
+    if (!pos) return;
+    pos = pos.split(":");
+    updateCell(pos[0], pos[1]);
+  };
   return (
     <div className="pixelgrid-container">
       <div
         className="pixelgrid"
         draggable="false"
-        onMouseDown={(e) => {
-          setHolding(e.button);
-        }}
+        onMouseDown={(e) => setHolding(e.button)}
         onMouseUp={() => setHolding(false)}
       >
         {cells.map((row, i) => {
@@ -82,12 +91,14 @@ const PixelGrid = ({
                 return (
                   <div
                     key={`col${j}`}
+                    data-index={`${i}:${j}`}
                     className="cell"
                     style={style}
                     draggable="false"
                     onMouseDown={(e) => onMouseDown(e, i, j)}
                     onContextMenu={(e) => e.preventDefault()}
                     onMouseEnter={() => onMouseEnter(i, j)}
+                    onTouchMove={onTouchMove}
                   />
                 );
               })}
