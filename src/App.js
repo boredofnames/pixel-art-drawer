@@ -1,16 +1,16 @@
 import React, { useState, useMemo, useEffect, useCallback } from "react";
 import Controls from "./component/Controls";
-import History from "./component/History";
 import PixelGrid from "./component/PixelGrid";
-import ColorPicker from "./component/ColorPicker";
 import "./App.css";
 
 function App() {
   const [color, setColor] = useState("#000000");
+  const [sColor, setSColor] = useState("#ffffff");
   const [outline, setOutline] = useState(true);
   const [gridWidth, setGridWidth] = useState(32);
   const [gridHeight, setGridHeight] = useState(32);
   const [cellSize, setCellSize] = useState(20);
+  const [tool, setTool] = useState("pen");
 
   const blankCells = useCallback(() => {
     var c = [];
@@ -25,9 +25,19 @@ function App() {
 
   const [cells, setCells] = useState(blankCells());
 
-  const history = useMemo(() => [...new Set([...cells].flat().sort())], [
-    cells,
-  ]);
+  const history = useMemo(
+    () => [
+      ...new Set(
+        [...cells]
+          .flat()
+          .filter((color) => {
+            return color !== "#00000000";
+          })
+          .sort()
+      ),
+    ],
+    [cells]
+  );
 
   useEffect(() => {
     setCells(blankCells());
@@ -35,6 +45,19 @@ function App() {
 
   return (
     <div className="App">
+      <PixelGrid
+        color={color}
+        setColor={setColor}
+        sColor={sColor}
+        setSColor={setSColor}
+        gridWidth={gridWidth}
+        gridHeight={gridHeight}
+        cellSize={cellSize}
+        outline={outline}
+        cells={cells}
+        setCells={setCells}
+        tool={tool}
+      />
       <Controls
         outline={outline}
         setOutline={setOutline}
@@ -47,21 +70,13 @@ function App() {
         cells={cells}
         color={color}
         setColor={setColor}
+        sColor={sColor}
+        setSColor={setSColor}
         setCells={setCells}
         blankCells={blankCells}
-      />
-      <div className="colors">
-        <ColorPicker color={color} setColor={setColor} />
-        <History history={history} setColor={setColor} />
-      </div>
-      <PixelGrid
-        color={color}
-        gridWidth={gridWidth}
-        gridHeight={gridHeight}
-        cellSize={cellSize}
-        outline={outline}
-        cells={cells}
-        setCells={setCells}
+        history={history}
+        tool={tool}
+        setTool={setTool}
       />
     </div>
   );

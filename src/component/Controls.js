@@ -1,6 +1,9 @@
 import React from "react";
+import History from "./History";
+import ColorPicker from "./ColorPicker";
 import Icon from "./Icon";
 import PixelImg from "./PixelImg";
+import Menu from "./Menu";
 import { Import, Export } from "./Imexport";
 
 const Controls = ({
@@ -15,66 +18,56 @@ const Controls = ({
   cells,
   color,
   setColor,
+  sColor,
+  setSColor,
   setCells,
   blankCells,
+  history,
+  tool,
+  setTool,
 }) => {
   return (
     <div className="controls">
-      <div>
-        Width:{" "}
-        <input
-          type="number"
-          min="1"
-          defaultValue={gridWidth}
-          onChange={(e) => {
-            setGridWidth(+e.currentTarget.value);
-          }}
-        />
+      <div className="colors">
+        <ColorPicker color={color} setColor={setColor} />
+        <ColorPicker color={sColor} setColor={setSColor} />
+        <History history={history} setColor={setColor} setSColor={setSColor} />
       </div>
-      <div>
-        Height:{" "}
-        <input
-          type="number"
-          min="1"
-          defaultValue={gridWidth}
-          onChange={(e) => {
-            setGridHeight(+e.currentTarget.value);
-          }}
-        />
-      </div>
-      <div>
-        Size:{" "}
-        <input
-          type="range"
-          min="5"
-          max="40"
-          defaultValue={cellSize}
-          onChange={(e) => {
-            setCellSize(+e.currentTarget.value);
-          }}
-        />
-      </div>
-      <div>
-        Outline:{" "}
-        <input
-          type="checkbox"
-          defaultChecked={outline}
-          onClick={() => {
-            setOutline(!outline);
-          }}
-        />
-      </div>
-      <div>
+      <div className="tools">
         <Icon
-          name="Eraser"
+          name="Pen"
           viewBox="0 0 512 512"
-          d="M497.94 273.94a48 48 0 0 0 0-67.88l-160-160a48 48 0 0 0-67.88 0l-256 256a48 48 0 0 0 0 67.88l96 96A48 48 0 0 0 144 480h356a12 12 0 0 0 12-12v-24a12 12 0 0 0-12-12H339.88l158.06-158.06zM304 80l160 160-103 103-160-160zM144 432l-96-96 119-119 160 160-55 55z"
-          onClick={() => setColor("#00000000")}
+          d="M493.26 56.26l-37.51-37.51C443.25 6.25 426.87 0 410.49 0s-32.76 6.25-45.25 18.74l-74.49 74.49L256 127.98 12.85 371.12.15 485.34C-1.45 499.72 9.88 512 23.95 512c.89 0 1.79-.05 2.69-.15l114.14-12.61L384.02 256l34.74-34.74 74.49-74.49c25-25 25-65.52.01-90.51zM118.75 453.39l-67.58 7.46 7.53-67.69 231.24-231.24 31.02-31.02 60.14 60.14-31.02 31.02-231.33 231.33zm340.56-340.57l-44.28 44.28-60.13-60.14 44.28-44.28c4.08-4.08 8.84-4.69 11.31-4.69s7.24.61 11.31 4.69l37.51 37.51c6.24 6.25 6.24 16.4 0 22.63z"
+          onClick={() => setTool("pen")}
           style={{
             width: "25px",
             height: "25px",
             cursor: "pointer",
-            color: color === "#00000000" ? "lime" : "white",
+            color: tool === "pen" ? "lime" : "white",
+          }}
+        />
+        <Icon
+          name="Color Picker"
+          viewBox="0 0 512 512"
+          d="M483.89 28.14l-.02-.02-.03-.03c-37.47-37.47-98.26-37.46-135.72.03l-77.09 77.09-13.1-13.1c-9.44-9.44-24.65-9.31-33.94 0l-63.6 63.6c-9.37 9.37-9.37 24.57 0 33.94l16.98 16.98L50.75 333.25c-12 12-18.75 28.28-18.75 45.26V424L0 480l32 32 56-32h45.49c16.97 0 33.25-6.74 45.25-18.74l126.64-126.62 16.96 16.96c9.44 9.44 24.65 9.31 33.94 0l63.6-63.6c9.37-9.37 9.37-24.57 0-33.94l-13.1-13.1 77.09-77.09c37.5-37.47 37.5-98.25.02-135.73zM144.8 427.32a15.892 15.892 0 0 1-11.31 4.68H80v-53.49c0-4.27 1.66-8.29 4.69-11.31l126.63-126.62 60.12 60.12L144.8 427.32zm305.14-297.38l-77.09 77.09-33.94 33.94 30.07 30.06-29.66 29.66-128-128 29.66-29.65 30.06 30.07L382.08 62.05c9.05-9.06 21.1-14.05 33.91-14.05 12.82 0 24.86 4.98 33.91 14.04l.04.04C459.01 71.14 464 83.19 464 96.01c0 12.81-5 24.86-14.06 33.93z"
+          onClick={() => setTool("colorpicker")}
+          style={{
+            width: "25px",
+            height: "25px",
+            cursor: "pointer",
+            color: tool === "colorpicker" ? "lime" : "white",
+          }}
+        />
+        <Icon
+          name="Eraser"
+          viewBox="0 0 512 512"
+          d="M497.94 273.94a48 48 0 0 0 0-67.88l-160-160a48 48 0 0 0-67.88 0l-256 256a48 48 0 0 0 0 67.88l96 96A48 48 0 0 0 144 480h356a12 12 0 0 0 12-12v-24a12 12 0 0 0-12-12H339.88l158.06-158.06zM304 80l160 160-103 103-160-160zM144 432l-96-96 119-119 160 160-55 55z"
+          onClick={() => setTool("eraser")}
+          style={{
+            width: "25px",
+            height: "25px",
+            cursor: "pointer",
+            color: tool === "eraser" ? "lime" : "white",
           }}
         />
         <Icon
@@ -84,12 +77,70 @@ const Controls = ({
           onClick={() => setCells(blankCells())}
           style={{ width: "25px", height: "25px", cursor: "pointer" }}
         />
-      </div>
-      <div>
         <PixelImg cells={cells} gridWidth={gridWidth} gridHeight={gridHeight} />
       </div>
-      <Import setCells={setCells} />
-      <Export cells={cells} />
+      <div className="menubar">
+        <Menu title="File">
+          <Import setCells={setCells} />
+          <hr />
+          <Export cells={cells} />
+        </Menu>
+        <Menu title="Image">
+          <div>
+            Width:
+            <div className="spacer" />
+            <input
+              type="number"
+              min="1"
+              defaultValue={gridWidth}
+              onChange={(e) => {
+                setGridWidth(+e.currentTarget.value);
+              }}
+            />
+          </div>
+          <div>
+            Height:
+            <div className="spacer" />
+            <input
+              type="number"
+              min="1"
+              defaultValue={gridWidth}
+              onChange={(e) => {
+                setGridHeight(+e.currentTarget.value);
+              }}
+            />
+          </div>
+          <hr />
+          <div>
+            Cell Size:
+            <div className="spacer" />
+            <input
+              type="range"
+              min="5"
+              max="40"
+              defaultValue={cellSize}
+              onChange={(e) => {
+                setCellSize(+e.currentTarget.value);
+              }}
+            />
+          </div>
+        </Menu>
+        <Menu title="View">
+          <div>
+            Outline:
+            <div className="spacer" />
+            <input
+              type="checkbox"
+              defaultChecked={outline}
+              onClick={() => {
+                setOutline(!outline);
+              }}
+            />
+          </div>
+        </Menu>
+        <div className="spacer" />
+        <div className="logo">pxl-art</div>
+      </div>
     </div>
   );
 };
