@@ -39,7 +39,6 @@ function App() {
   );
 
   const onKeyDown = (e) => {
-    console.log(e.key);
     switch (e.key) {
       case "a":
         setTool("pen");
