@@ -1,22 +1,28 @@
 import React, { useEffect } from "react";
+import "../css/PixelImg.css";
 
-const PixelImg = ({ cells, gridWidth, gridHeight }) => {
+const PixelImg = ({ cells, cellSize, gridWidth, gridHeight }) => {
   useEffect(() => {
     if (!gridWidth || !gridHeight) return;
-    const setPixel = (x, y, color) => {
+    const setPixel = (x, y, color, size) => {
       ctx.fillStyle = color;
-      ctx.fillRect(x, y, 1, 1);
+      ctx.fillRect(x, y, size, size);
     };
 
-    const canvas = document.getElementById("canvas");
-    canvas.width = gridWidth;
-    canvas.height = gridHeight;
-    const ctx = canvas.getContext("2d");
+    var canvas = document.getElementById("canvas");
+    canvas.width = gridWidth * cellSize;
+    canvas.height = gridHeight * cellSize;
+    var ctx = canvas.getContext("2d");
+    cells.map((row, i) =>
+      row.map((col, j) => setPixel(i * cellSize, j * cellSize, col, cellSize))
+    );
+  }, [cells, gridWidth, gridHeight, cellSize]);
 
-    cells.map((row, i) => row.map((col, j) => setPixel(i, j, col)));
-  }, [cells, gridWidth, gridHeight]);
-
-  const style = { width: `${gridWidth}px`, height: `${gridHeight}px` };
+  const style = {
+    width: `${gridWidth * cellSize}px`,
+    height: `${gridHeight * cellSize}px`,
+    display: "none",
+  };
 
   return (
     <div className="pixelimg">

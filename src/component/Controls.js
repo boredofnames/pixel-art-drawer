@@ -4,7 +4,9 @@ import ColorPicker from "./ColorPicker";
 import Icon from "./Icon";
 import PixelImg from "./PixelImg";
 import Menu from "./Menu";
+import Save from "./Save";
 import { Import, Export } from "./Imexport";
+import "../css/Controls.css";
 
 const Controls = ({
   outline,
@@ -104,9 +106,10 @@ const Controls = ({
             <span>Clear</span>
           </div>
           <hr />
-          <Import setCells={setCells} />
+          <Import setCells={setCells} setGridSize={setGridSize} />
           <hr />
-          <Export cells={cells} />
+          <Export cells={cells} setGridSize={setGridSize} />
+          <Save />
         </Menu>
         <Menu title="Image" menu={menu} setMenu={setMenu}>
           <label className="col">
@@ -160,7 +163,12 @@ const Controls = ({
           </label>
         </Menu>
         <div className="spacer" />
-        <PixelImg cells={cells} gridWidth={gridWidth} gridHeight={gridHeight} />
+        <PixelImg
+          cells={cells}
+          gridWidth={gridWidth}
+          gridHeight={gridHeight}
+          cellSize={cellSize}
+        />
         <div className="logo">pxl-art</div>
       </div>
     </div>

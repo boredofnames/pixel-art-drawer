@@ -1,4 +1,5 @@
 import React from "react";
+import "../css/ColorPicker.css";
 
 const ColorPicker = ({ secondary, color, setColor }) => {
   return (

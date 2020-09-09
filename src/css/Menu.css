@@ -1,0 +1,67 @@
+.menu {
+  position: relative;
+  border: 1px solid #666;
+  cursor: pointer;
+}
+
+.menu .inner {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  bottom: 31px;
+  left: -1px;
+  width: fit-content;
+  white-space: nowrap;
+  min-width: 125px;
+  background-color: #222;
+  border: 1px solid #555;
+  padding: 10px;
+  z-index: 2;
+}
+
+.menu .inner label {
+  display: flex;
+  align-items: center;
+  margin: 0 10px;
+}
+
+.menu .sb {
+  justify-content: space-between;
+}
+
+.menu .inner a {
+  display: flex;
+  align-items: center;
+
+  color: white;
+  text-decoration: none;
+  margin: 0 10px;
+}
+
+.menu .inner .menuitem {
+  display: flex;
+  margin: 0 10px;
+}
+
+.menu .inner hr {
+  border: 1px solid #444;
+  border-radius: 1px;
+  width: 100%;
+  margin: 10px 0;
+  padding: 0;
+}
+
+.menu .icon {
+  margin-right: 10px;
+}
+
+input[type="number"] {
+  width: 40px;
+}
+input[type="range"] {
+  width: 100px;
+}
+
+.label {
+  cursor: pointer;
+}

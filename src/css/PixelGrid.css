@@ -1,0 +1,12 @@
+.pixelgrid-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: calc(100vh - 120px);
+  overflow: auto;
+}
+
+.pixelgrid {
+  white-space: nowrap;
+}

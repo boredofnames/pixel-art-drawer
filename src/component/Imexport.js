@@ -2,16 +2,31 @@ import React, { useRef } from "react";
 import { compress, decompress } from "../js/utils";
 import Icon from "./Icon";
 
-export const Import = ({ setCells }) => {
+export const Import = ({ setCells, setGridSize }) => {
   const importRef = useRef(null);
   const doImport = () => {
     var file = importRef.current.files[0];
     var reader = new FileReader();
-    reader.onloadend = (e) => {
-      setCells(decompress(e.target.result));
-      importRef.current.value = "";
-    };
+    reader.onloadend = (e) => onLoad(e);
     reader.readAsText(file);
+  };
+  const onLoad = (e) => {
+    var cells = decompress(e.target.result),
+      size = getSize(cells);
+    setSize(size);
+    setTimeout(() => setCells(cells), 100);
+
+    importRef.current.value = "";
+  };
+  const getSize = (cells) => {
+    return {
+      width: cells.length,
+      height: cells[0].length,
+    };
+  };
+  const setSize = (size) => {
+    setGridSize("width", size.width);
+    setGridSize("height", size.height);
   };
   return (
     <div className="import">
@@ -19,7 +34,7 @@ export const Import = ({ setCells }) => {
         <Icon
           viewBox="0 0 576 512"
           d="M528 288H384v-32h64c42.6 0 64.2-51.7 33.9-81.9l-160-160c-18.8-18.8-49.1-18.7-67.9 0l-160 160c-30.1 30.1-8.7 81.9 34 81.9h64v32H48c-26.5 0-48 21.5-48 48v128c0 26.5 21.5 48 48 48h480c26.5 0 48-21.5 48-48V336c0-26.5-21.5-48-48-48zm-400-80L288 48l160 160H336v160h-96V208H128zm400 256H48V336h144v32c0 26.5 21.5 48 48 48h96c26.5 0 48-21.5 48-48v-32h144v128zm-40-64c0 13.3-10.7 24-24 24s-24-10.7-24-24 10.7-24 24-24 24 10.7 24 24z"
-          style={{ width: "15px", height: "15px" }}
+          style={{ width: "15px", height: "15px", cursor: "pointer" }}
         />
         Load Project
         <input

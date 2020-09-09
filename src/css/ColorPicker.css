@@ -1,0 +1,9 @@
+.colorpicker {
+  width: 35px;
+  height: 35px;
+  margin: 0 15px;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  outline: transparent;
+}

@@ -1,4 +1,5 @@
 import React from "react";
+import "../css/History.css";
 
 const History = ({ history, setColor }) => {
   const onMouseDown = (e, color) => {
