@@ -1,13 +1,13 @@
 import React from "react";
 
-const History = ({ history, setColor, setSColor }) => {
+const History = ({ history, setColor }) => {
   const onMouseDown = (e, color) => {
     switch (e.button) {
       case 0:
-        setColor(color);
+        setColor(0, color);
         break;
       case 2:
-        setSColor(color);
+        setColor(1, color);
         break;
       default:
         break;

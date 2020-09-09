@@ -6,7 +6,6 @@ const PixelGrid = ({
   color,
   setColor,
   sColor,
-  setSColor,
   cellSize,
   outline,
   tool,
@@ -20,7 +19,7 @@ const PixelGrid = ({
   const replaceColor = (i, j) => {
     let newCells = cells.map((row) =>
       row.map((col) => {
-        if (col === cells[i][j]) return color;
+        if (col === cells[i][j]) return tool === "eraser" ? "#00000000" : color;
         else return col;
       })
     );
@@ -32,7 +31,7 @@ const PixelGrid = ({
         if (tool === "pen") updateCell(i, j);
         else if (tool === "eraser") updateCell(i, j, "#00000000");
         else if (tool === "colorpicker" && cells[i][j] !== "#00000000")
-          setColor(cells[i][j]);
+          setColor(0, cells[i][j]);
         break;
       case 1:
         replaceColor(i, j);
@@ -40,7 +39,7 @@ const PixelGrid = ({
       case 2:
         if (tool === "pen") updateCell(i, j, sColor);
         else if (tool === "colorpicker" && cells[i][j] !== "#00000000")
-          setSColor(cells[i][j]);
+          setColor(1, cells[i][j]);
         break;
       default:
         break;
@@ -86,7 +85,12 @@ const PixelGrid = ({
                   width: cellSize,
                   height: cellSize,
                   backgroundColor: col,
-                  outline: outline ? "1px solid black" : "none",
+                  outline:
+                    outline && col !== "#000000"
+                      ? "1px solid black"
+                      : outline && col === "#000000"
+                      ? "1px solid #111"
+                      : "none",
                 };
                 return (
                   <div

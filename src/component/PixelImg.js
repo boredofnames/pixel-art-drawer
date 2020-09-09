@@ -16,7 +16,13 @@ const PixelImg = ({ cells, gridWidth, gridHeight }) => {
     cells.map((row, i) => row.map((col, j) => setPixel(i, j, col)));
   }, [cells, gridWidth, gridHeight]);
 
-  return <canvas id="canvas" />;
+  const style = { width: `${gridWidth}px`, height: `${gridHeight}px` };
+
+  return (
+    <div className="pixelimg">
+      <canvas id="canvas" style={style} />
+    </div>
+  );
 };
 
 export default PixelImg;

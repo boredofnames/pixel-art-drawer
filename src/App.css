@@ -88,12 +88,14 @@ input[type="range"] {
   display: flex;
   flex-direction: column;
   position: absolute;
-  bottom: 30px;
+  bottom: 31px;
   left: -1px;
-  width: 125px;
+  width: fit-content;
+  white-space: nowrap;
+  min-width: 125px;
   background-color: #222;
   border: 1px solid #555;
-  padding: 10px;
+  padding: 20px;
   z-index: 2;
 }
 
@@ -105,6 +107,8 @@ input[type="range"] {
 }
 
 .menu a {
+  display: flex;
+  align-items: center;
   color: white;
   text-decoration: none;
 }
@@ -113,7 +117,7 @@ hr {
   border: 1px solid #444;
   border-radius: 1px;
   width: 100%;
-  margin: 2px;
+  margin: 4px;
   padding: 0;
 }
 
@@ -127,4 +131,28 @@ hr {
   font-weight: bold;
   border-radius: 5px;
   box-shadow: inset -2px -2px 5px black;
+}
+
+.pixelimg {
+  display: flex;
+  align-items: center;
+  margin-right: 5px;
+}
+
+.controls .icon {
+  margin: 5px;
+}
+
+.menu label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.col {
+  flex-direction: column;
+}
+
+.menu .icon {
+  margin-right: 10px;
 }

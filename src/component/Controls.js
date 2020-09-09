@@ -19,19 +19,40 @@ const Controls = ({
   color,
   setColor,
   sColor,
-  setSColor,
   setCells,
   blankCells,
   history,
   tool,
   setTool,
+  menu,
+  setMenu,
 }) => {
+  const trash = () => {
+    if (window.confirm("Are you sure?") === true) setCells(blankCells());
+  };
+  const setGridSize = (dim, size) => {
+    if (
+      new Set([...cells].flat().filter((cell) => cell !== "#00000000")).size > 0
+    )
+      if (window.confirm("Are you sure? Will clear the drawing!") === false)
+        return;
+    switch (dim) {
+      case "width":
+        setGridWidth(size);
+        break;
+      case "height":
+        setGridHeight(size);
+        break;
+      default:
+        break;
+    }
+  };
   return (
     <div className="controls">
       <div className="colors">
         <ColorPicker color={color} setColor={setColor} />
-        <ColorPicker color={sColor} setColor={setSColor} />
-        <History history={history} setColor={setColor} setSColor={setSColor} />
+        <ColorPicker secondary={true} color={sColor} setColor={setColor} />
+        <History history={history} setColor={setColor} />
       </div>
       <div className="tools">
         <Icon
@@ -74,45 +95,44 @@ const Controls = ({
           name="Trash"
           viewBox="0 0 448 512"
           d="M296 432h16a8 8 0 0 0 8-8V152a8 8 0 0 0-8-8h-16a8 8 0 0 0-8 8v272a8 8 0 0 0 8 8zm-160 0h16a8 8 0 0 0 8-8V152a8 8 0 0 0-8-8h-16a8 8 0 0 0-8 8v272a8 8 0 0 0 8 8zM440 64H336l-33.6-44.8A48 48 0 0 0 264 0h-80a48 48 0 0 0-38.4 19.2L112 64H8a8 8 0 0 0-8 8v16a8 8 0 0 0 8 8h24v368a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V96h24a8 8 0 0 0 8-8V72a8 8 0 0 0-8-8zM171.2 38.4A16.1 16.1 0 0 1 184 32h80a16.1 16.1 0 0 1 12.8 6.4L296 64H152zM384 464a16 16 0 0 1-16 16H80a16 16 0 0 1-16-16V96h320zm-168-32h16a8 8 0 0 0 8-8V152a8 8 0 0 0-8-8h-16a8 8 0 0 0-8 8v272a8 8 0 0 0 8 8z"
-          onClick={() => setCells(blankCells())}
+          onClick={() => trash()}
           style={{ width: "25px", height: "25px", cursor: "pointer" }}
         />
       </div>
       <div className="menubar">
-        <Menu title="File">
+        <Menu title="File" menu={menu} setMenu={setMenu}>
           <Import setCells={setCells} />
           <hr />
           <Export cells={cells} />
         </Menu>
-        <Menu title="Image">
-          <div>
-            Width:
-            <div className="spacer" />
+        <Menu title="Image" menu={menu} setMenu={setMenu}>
+          <label className="col">
+            Width: {gridWidth}
             <input
-              type="number"
+              type="range"
               min="1"
+              max="100"
               defaultValue={gridWidth}
               onChange={(e) => {
-                setGridWidth(+e.currentTarget.value);
+                setGridSize("width", +e.currentTarget.value);
               }}
             />
-          </div>
-          <div>
-            Height:
-            <div className="spacer" />
+          </label>
+          <label className="col">
+            Height: {gridHeight}
             <input
-              type="number"
+              type="range"
               min="1"
+              max="100"
               defaultValue={gridWidth}
               onChange={(e) => {
-                setGridHeight(+e.currentTarget.value);
+                setGridSize("height", +e.currentTarget.value);
               }}
             />
-          </div>
+          </label>
           <hr />
-          <div>
-            Cell Size:
-            <div className="spacer" />
+          <label className="col">
+            Cell Size: {cellSize}
             <input
               type="range"
               min="5"
@@ -122,12 +142,11 @@ const Controls = ({
                 setCellSize(+e.currentTarget.value);
               }}
             />
-          </div>
+          </label>
         </Menu>
-        <Menu title="View">
-          <div>
+        <Menu title="View" menu={menu} setMenu={setMenu}>
+          <label>
             Outline:
-            <div className="spacer" />
             <input
               type="checkbox"
               defaultChecked={outline}
@@ -135,7 +154,7 @@ const Controls = ({
                 setOutline(!outline);
               }}
             />
-          </div>
+          </label>
         </Menu>
         <div className="spacer" />
         <PixelImg cells={cells} gridWidth={gridWidth} gridHeight={gridHeight} />

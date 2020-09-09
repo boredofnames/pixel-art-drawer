@@ -1,12 +1,16 @@
 import React from "react";
 
-const ColorPicker = ({ color, setColor }) => {
+const ColorPicker = ({ secondary, color, setColor }) => {
   return (
     <input
       className="colorpicker"
       type="color"
       value={color}
-      onChange={(e) => setColor(e.currentTarget.value)}
+      onChange={(e) => {
+        secondary
+          ? setColor(1, e.currentTarget.value)
+          : setColor(0, e.currentTarget.value);
+      }}
     />
   );
 };

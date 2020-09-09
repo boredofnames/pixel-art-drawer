@@ -11,6 +11,7 @@ function App() {
   const [gridHeight, setGridHeight] = useState(32);
   const [cellSize, setCellSize] = useState(20);
   const [tool, setTool] = useState("pen");
+  const [menu, setMenu] = useState(null);
 
   const blankCells = useCallback(() => {
     var c = [];
@@ -30,9 +31,7 @@ function App() {
       ...new Set(
         [...cells]
           .flat()
-          .filter((color) => {
-            return color !== "#00000000";
-          })
+          .filter((color) => color !== "#00000000")
           .sort()
       ),
     ],
@@ -56,17 +55,41 @@ function App() {
     }
   };
 
+  const doSetColor = (which, color) => {
+    switch (which) {
+      case "primary":
+      case 0:
+        setColor(color);
+        break;
+      case "secondary":
+      case 1:
+        setSColor(color);
+        break;
+      default:
+        break;
+    }
+    if (tool !== "pen") setTool("pen");
+  };
+
+  const onClick = (e) => {
+    menu !== null && e.target.className !== "menutitle" && setMenu(null);
+  };
+
   useEffect(() => {
     setCells(blankCells());
   }, [gridWidth, gridHeight, blankCells]);
 
   return (
-    <div className="App" onKeyDown={(e) => onKeyDown(e)} tabIndex={0}>
+    <div
+      className="App"
+      onClick={(e) => onClick(e)}
+      onKeyDown={(e) => onKeyDown(e)}
+      tabIndex={0}
+    >
       <PixelGrid
         color={color}
-        setColor={setColor}
         sColor={sColor}
-        setSColor={setSColor}
+        setColor={doSetColor}
         gridWidth={gridWidth}
         gridHeight={gridHeight}
         cellSize={cellSize}
@@ -86,14 +109,15 @@ function App() {
         setCellSize={setCellSize}
         cells={cells}
         color={color}
-        setColor={setColor}
         sColor={sColor}
-        setSColor={setSColor}
+        setColor={doSetColor}
         setCells={setCells}
         blankCells={blankCells}
         history={history}
         tool={tool}
         setTool={setTool}
+        menu={menu}
+        setMenu={setMenu}
       />
     </div>
   );

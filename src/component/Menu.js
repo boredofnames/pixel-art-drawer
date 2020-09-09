@@ -1,24 +1,23 @@
-import React, { useState } from "react";
+import React from "react";
 
-const Menu = ({ title, children }) => {
-  const [open, setOpen] = useState(false);
+const Menu = ({ title, children, menu, setMenu }) => {
   return (
     <div
       className="menu"
-      onClick={() => setOpen(!open)}
-      onMouseLeave={() => setOpen(false)}
+      onClick={() => setMenu(menu === title ? null : title)}
     >
       <div
         className="inner"
         onClick={(e) => e.stopPropagation()}
-        style={{ display: open ? "flex" : "none" }}
+        style={{ display: title === menu ? "flex" : "none" }}
       >
         {children}
       </div>
       <div
+        className="menutitle"
         style={{
           padding: "5px",
-          backgroundColor: open ? "#222" : "#555",
+          backgroundColor: title === menu ? "#222" : "#555",
         }}
       >
         {title}

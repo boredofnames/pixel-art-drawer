@@ -3,6 +3,7 @@ import React from "react";
 const Icon = ({ d, viewBox, onClick, name, style }) => {
   return (
     <svg
+      className="icon"
       aria-hidden="true"
       focusable="false"
       data-prefix="far"
