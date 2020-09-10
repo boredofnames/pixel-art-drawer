@@ -1,5 +1,6 @@
 .App {
   display: flex;
+  position: relative;
   flex-direction: column;
   width: fit-content;
   min-width: 100%;
@@ -8,4 +9,10 @@
   background-color: #222;
   color: white;
   user-select: none;
+}
+
+.lightbulb {
+  position: absolute;
+  right: 2px;
+  top: 2px;
 }
