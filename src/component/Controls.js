@@ -3,9 +3,10 @@ import History from "./History";
 import ColorPicker from "./ColorPicker";
 import Icon from "./Icon";
 import PixelImg from "./PixelImg";
-import Menu from "./Menu";
+import { MenuItem, Menu } from "./Menu";
 import Save from "./Save";
 import { Import, Export } from "./Imexport";
+import Logo from "../asset/logo.png";
 import "../css/Controls.css";
 
 const Controls = ({
@@ -96,7 +97,7 @@ const Controls = ({
       </div>
       <div className="menubar">
         <Menu title="File" menu={menu} setMenu={setMenu}>
-          <div className="menuitem" onClick={() => trash()}>
+          <MenuItem className="menuitem" onClick={() => trash()}>
             <Icon
               name="Trash"
               viewBox="0 0 448 512"
@@ -104,63 +105,117 @@ const Controls = ({
               style={{ width: "15px", height: "15px" }}
             />
             <span>Clear</span>
-          </div>
+          </MenuItem>
           <hr />
-          <Import setCells={setCells} setGridSize={setGridSize} />
+          <MenuItem>
+            <Import setCells={setCells} setGridSize={setGridSize} />
+          </MenuItem>
           <hr />
-          <Export cells={cells} setGridSize={setGridSize} />
-          <Save />
+          <MenuItem>
+            <Export cells={cells} setGridSize={setGridSize} />
+          </MenuItem>
+          <MenuItem>
+            <Save />
+          </MenuItem>
         </Menu>
         <Menu title="Image" menu={menu} setMenu={setMenu}>
-          <label className="col">
-            Width: {gridWidth}
-            <input
-              type="range"
-              min="1"
-              max="100"
-              defaultValue={gridWidth}
-              onChange={(e) => {
-                setGridSize("width", +e.currentTarget.value);
+          <MenuItem>
+            <Icon
+              name="Width"
+              viewBox="0 0 512 512"
+              d="M347.404 142.86c-4.753 4.753-4.675 12.484.173 17.14l73.203 70H91.22l73.203-70c4.849-4.656 4.927-12.387.173-17.14l-19.626-19.626c-4.686-4.686-12.284-4.686-16.971 0L3.515 247.515c-4.686 4.686-4.686 12.284 0 16.971L128 388.766c4.686 4.686 12.284 4.686 16.971 0l19.626-19.626c4.753-4.753 4.675-12.484-.173-17.14L91.22 282h329.56l-73.203 70c-4.849 4.656-4.927 12.387-.173 17.14l19.626 19.626c4.686 4.686 12.284 4.686 16.971 0l124.485-124.281c4.686-4.686 4.686-12.284 0-16.971L384 123.234c-4.686-4.686-12.284-4.686-16.971 0l-19.625 19.626z"
+              style={{
+                width: "15px",
+                height: "15px",
+                cursor: "pointer",
               }}
             />
-          </label>
-          <label className="col">
-            Height: {gridHeight}
-            <input
-              type="range"
-              min="1"
-              max="100"
-              defaultValue={gridWidth}
-              onChange={(e) => {
-                setGridSize("height", +e.currentTarget.value);
+            <label className="col">
+              Width: {gridWidth}
+              <input
+                type="range"
+                min="1"
+                max="100"
+                defaultValue={gridWidth}
+                onChange={(e) => {
+                  setGridSize("width", +e.currentTarget.value);
+                }}
+              />
+            </label>
+          </MenuItem>
+          <MenuItem>
+            <Icon
+              name="Height"
+              viewBox="0 0 320 512"
+              d="M273.1 347.4c-4.8-4.8-12.5-4.7-17.1.2l-70 73.2V91.2l70 73.2c4.7 4.8 12.4 4.9 17.1.2l19.6-19.6c4.7-4.7 4.7-12.3 0-17L168.5 3.5c-4.7-4.7-12.3-4.7-17 0L27.2 128c-4.7 4.7-4.7 12.3 0 17l19.6 19.6c4.8 4.8 12.5 4.7 17.1-.2l70-73.2v329.6l-70-73.2c-4.7-4.8-12.4-4.9-17.1-.2L27.2 367c-4.7 4.7-4.7 12.3 0 17l124.3 124.5c4.7 4.7 12.3 4.7 17 0L292.8 384c4.7-4.7 4.7-12.3 0-17l-19.7-19.6z"
+              style={{
+                width: "15px",
+                height: "15px",
+                cursor: "pointer",
               }}
             />
-          </label>
+            <label className="col">
+              Height: {gridHeight}
+              <input
+                type="range"
+                min="1"
+                max="100"
+                defaultValue={gridWidth}
+                onChange={(e) => {
+                  setGridSize("height", +e.currentTarget.value);
+                }}
+              />
+            </label>
+          </MenuItem>
           <hr />
-          <label className="col">
-            Cell Size: {cellSize}
-            <input
-              type="range"
-              min="1"
-              max="100"
-              defaultValue={cellSize}
-              onChange={(e) => {
-                setCellSize(+e.currentTarget.value);
+          <MenuItem>
+            <Icon
+              name="Cell Size"
+              viewBox="0 0 512 512"
+              d="M0 0v512h512V0H0zm464 464H48V48h416v416z"
+              style={{
+                width: "15px",
+                height: "15px",
+                cursor: "pointer",
               }}
             />
-          </label>
+            <label className="col">
+              Cell Size: {cellSize}
+              <input
+                type="range"
+                min="1"
+                max="100"
+                defaultValue={cellSize}
+                onChange={(e) => {
+                  setCellSize(+e.currentTarget.value);
+                }}
+              />
+            </label>
+          </MenuItem>
         </Menu>
         <Menu title="View" menu={menu} setMenu={setMenu}>
-          <label className="sb">
-            <span>Outline:</span>
-            <input
-              type="checkbox"
-              defaultChecked={outline}
-              onClick={() => {
-                setOutline(!outline);
+          <MenuItem>
+            <Icon
+              name="Grid"
+              viewBox="0 0 448 512"
+              d="M416 32H32A32 32 0 0 0 0 64v384a32 32 0 0 0 32 32h384a32 32 0 0 0 32-32V64a32 32 0 0 0-32-32zm-16 48v152H248V80zm-200 0v152H48V80zM48 432V280h152v152zm200 0V280h152v152z"
+              style={{
+                width: "15px",
+                height: "15px",
+                cursor: "pointer",
               }}
             />
-          </label>
+            <label>
+              Grid:
+              <input
+                type="checkbox"
+                defaultChecked={outline}
+                onClick={() => {
+                  setOutline(!outline);
+                }}
+              />
+            </label>
+          </MenuItem>
         </Menu>
         <div className="spacer" />
         <PixelImg
@@ -169,7 +224,7 @@ const Controls = ({
           gridHeight={gridHeight}
           cellSize={cellSize}
         />
-        <div className="logo">pxl-art</div>
+        <img className="logo" src={Logo} alt="logo" />
       </div>
     </div>
   );

@@ -1,11 +1,20 @@
 import React from "react";
 import "../css/Menu.css";
 
-const Menu = ({ title, children, menu, setMenu }) => {
+export const MenuItem = ({ children, onClick }) => {
+  return (
+    <div className="menuitem" onClick={onClick}>
+      {children}
+    </div>
+  );
+};
+
+export const Menu = ({ title, children, menu, setMenu }) => {
   return (
     <div
       className="menu"
       onClick={() => setMenu(menu === title ? null : title)}
+      style={{ backgroundColor: menu === title ? "#222" : "#555" }}
     >
       <div
         className="inner"
@@ -18,7 +27,6 @@ const Menu = ({ title, children, menu, setMenu }) => {
         className="menutitle"
         style={{
           padding: "5px",
-          backgroundColor: title === menu ? "#222" : "#555",
         }}
       >
         {title}
@@ -26,5 +34,3 @@ const Menu = ({ title, children, menu, setMenu }) => {
     </div>
   );
 };
-
-export default Menu;
