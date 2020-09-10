@@ -4,8 +4,8 @@ import ColorPicker from "./ColorPicker";
 import Icon from "./Icon";
 import PixelImg from "./PixelImg";
 import { MenuItem, Menu } from "./Menu";
-import Save from "./Save";
-import { Import, Export } from "./Imexport";
+import { Save, Load } from "./Image";
+import { Import, Export } from "./Project";
 import Logo from "../asset/logo.png";
 import "../css/Controls.css";
 
@@ -67,7 +67,7 @@ const Controls = ({
             width: "25px",
             height: "25px",
             cursor: "pointer",
-            color: tool === "pen" ? "lime" : "white",
+            color: tool === "pen" ? "#9a009a" : "white",
           }}
         />
         <Icon
@@ -79,7 +79,7 @@ const Controls = ({
             width: "25px",
             height: "25px",
             cursor: "pointer",
-            color: tool === "colorpicker" ? "lime" : "white",
+            color: tool === "colorpicker" ? "#9a009a" : "white",
           }}
         />
         <Icon
@@ -91,7 +91,7 @@ const Controls = ({
             width: "25px",
             height: "25px",
             cursor: "pointer",
-            color: tool === "eraser" ? "lime" : "white",
+            color: tool === "eraser" ? "#9a009a" : "white",
           }}
         />
       </div>
@@ -109,6 +109,9 @@ const Controls = ({
           <hr />
           <MenuItem>
             <Import setCells={setCells} setGridSize={setGridSize} />
+          </MenuItem>
+          <MenuItem>
+            <Load setCells={setCells} setGridSize={setGridSize} />
           </MenuItem>
           <hr />
           <MenuItem>
