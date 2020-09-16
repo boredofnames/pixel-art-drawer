@@ -1,5 +1,8 @@
-## pxl-art
+## react-pxl-art
 
 Simple pixel art drawer
 
-Live at [https://pxl-art.netlify.app/](https://pxl-art.netlify.app/)
+Renamed and Discontinued in favor of mobx-jsx
+
+You can find the git here
+[https://github.com/boredofnames/pxl-art](https://github.com/boredofnames/pxl-art)

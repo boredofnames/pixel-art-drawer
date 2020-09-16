@@ -65,11 +65,9 @@ export const Load = ({ setCells, setGridSize }) => {
       size = getSize(cells);
     setSize(size);
     setTimeout(() => setCells(cells), 100);
-    console.log(cells);
   };
   const createImg = (src) => {
     let img = new Image();
-    console.log(src);
     img.src = src;
     img.onload = () => onImgLoad(img);
   };
